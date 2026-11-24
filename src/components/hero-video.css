@@ -1,0 +1,44 @@
+/* Full-width video hero. The static hero remains available in HeroStatic.tsx. */
+.hero-video-section {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  background: #ececee;
+}
+
+.hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  border: 0;
+  outline: 0;
+}
+
+/* Keep the hero edge flush with the viewport on narrow screens too. */
+@media (max-width: 600px) {
+  .hero-video-section {
+    width: 100%;
+    aspect-ratio: auto;
+    height: 430px;
+    margin: 0;
+  }
+
+  .hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 65%;
+  }
+}

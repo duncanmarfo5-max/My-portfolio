@@ -1,15 +1,12 @@
 import { useState, type FormEvent } from 'react';
 import { Github, Linkedin, Loader2, Mail, MapPin, Send } from 'lucide-react';
 import { profile } from '@/config/site';
-import { useReveal } from '@/hooks/useReveal';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function Contact() {
-  const { ref, visible } = useReveal();
-  const [status, setStatus] = useState<Status>('idle');
+export default function Contact() {  const [status, setStatus] = useState<Status>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -68,14 +65,14 @@ export default function Contact() {
   return (
     <section id="contact" className="bg-ink py-24 text-white sm:py-32">
       <div
-        ref={ref}
-        className={`mx-auto max-w-7xl px-6 lg:px-10 ${visible ? 'reveal-visible' : 'reveal'}`}
+        className="mx-auto max-w-7xl px-6 lg:px-10"
       >
         <h2 className="max-w-4xl font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-          Have a project in mind?
-          <br />
-          <span className="text-neutral-400">Let&apos;s build something great.</span>
+          Get In Touch
         </h2>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-neutral-300 sm:text-xl">
+          Have a project in mind? Let&apos;s build something great.
+        </p>
 
         <div className="mt-16 grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
           <div className="space-y-10">

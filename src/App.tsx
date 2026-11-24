@@ -10,58 +10,43 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
 
-function ScrollRevealObserver() {
+function ScrollReveal() {
   useEffect(() => {
-    const targets = Array.from(
+    const sections = Array.from(
       document.querySelectorAll<HTMLElement>(
-        [
-          'main section:not(#home) h2',
-          'main section:not(#home) h3',
-          'main section:not(#home) p',
-          'main section:not(#home) article',
-          'main section:not(#home) article img',
-          'main section:not(#home) form',
-          'main section:not(#home) ol > li',
-          'main section:not(#home) .grid > div',
-          'main section:not(#home) .space-y-6 > p',
-        ].join(',')
+        'main > section:not(#home)'
       )
     );
 
-    if (!targets.length) return;
+    if (!('IntersectionObserver' in window)) return;
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-      targets.forEach((element) => element.classList.add('scroll-in', 'scroll-in-visible'));
-      return;
-    }
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
-    // Give sibling content a short stagger so cards and text emerge in sequence.
-    const siblingCounters = new Map<HTMLElement, number>();
-    targets.forEach((element) => {
-      const parent = element.parentElement;
-      const index = parent ? (siblingCounters.get(parent) ?? 0) : 0;
-      if (parent) siblingCounters.set(parent, index + 1);
-      element.classList.add('scroll-in');
-      element.style.setProperty('--scroll-delay', `${Math.min(index, 5) * 85}ms`);
+    if (reduceMotion) return;
+
+    sections.forEach((section) => {
+      section.classList.add('scroll-reveal');
     });
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-in-visible');
+            entry.target.classList.add('scroll-reveal-visible');
             observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: '0px 0px -7% 0px',
+        threshold: 0.05,
+        rootMargin: '0px 0px -50px 0px'
       }
     );
 
-    targets.forEach((element) => observer.observe(element));
+    sections.forEach((section) => observer.observe(section));
+
     return () => observer.disconnect();
   }, []);
 
@@ -70,18 +55,15 @@ function ScrollRevealObserver() {
 
 function ScrollProgress() {
   const [progress, setProgress] = useState(0);
-
   useEffect(() => {
     let frame = 0;
     const update = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        const root = document.documentElement;
-        const distance = root.scrollHeight - window.innerHeight;
+        const distance = document.documentElement.scrollHeight - window.innerHeight;
         setProgress(distance > 0 ? window.scrollY / distance : 0);
       });
     };
-
     update();
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
@@ -91,7 +73,6 @@ function ScrollProgress() {
       window.removeEventListener('resize', update);
     };
   }, []);
-
   return (
     <div className="scroll-progress-track" aria-hidden="true">
       <div className="scroll-progress-bar" style={{ transform: `scaleX(${progress})` }} />
@@ -100,48 +81,9 @@ function ScrollProgress() {
 }
 
 function App() {
-  useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const targets = document.querySelectorAll<HTMLElement>(
-      'main section:not(#home) h2, main section:not(#home) h3, main section:not(#home) p, main section:not(#home) img, main section:not(#home) article, main section:not(#home) form, main section:not(#home) li, main section:not(#home) .service-reveal'
-    );
-
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-      targets.forEach((element) => element.classList.add('scroll-in-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const element = entry.target as HTMLElement;
-        element.classList.add('scroll-in-visible');
-        observer.unobserve(element);
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -45px 0px',
-    });
-
-    targets.forEach((element) => {
-      if (element.closest('.hero-image-section')) return;
-      const siblings = element.parentElement
-        ? Array.from(element.parentElement.children).filter((child) =>
-            child.matches('h2, h3, p, img, article, form, li, .service-reveal')
-          )
-        : [];
-      const stagger = Math.min(Math.max(siblings.indexOf(element), 0), 5);
-      element.style.setProperty('--scroll-delay', `${stagger * 85}ms`);
-      element.classList.add('scroll-in');
-      observer.observe(element);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div className="min-h-screen bg-white font-sans">
-      <ScrollRevealObserver />
+      <ScrollReveal />
       <ScrollProgress />
       <Header />
       <main>

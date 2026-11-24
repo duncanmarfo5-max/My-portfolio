@@ -1,0 +1,19 @@
+HERO VIDEO RESTORE
+
+The active hero now plays the existing video:
+  public/hero-text-morph-boomerang-muted.mp4
+
+The previous static hero has NOT been deleted. It is preserved in:
+  src/components/HeroStatic.tsx
+and its original stylesheet remains:
+  src/components/hero.css
+
+To switch back to the static hero:
+1. Open src/App.tsx.
+2. Find: import Hero from './components/Hero';
+3. Change it to: import Hero from './components/HeroStatic';
+4. Save the file.
+
+To use the video hero again, change the import back to './components/Hero'.
+
+The other portfolio sections and the typography updates are retained.

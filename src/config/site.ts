@@ -17,18 +17,17 @@ export const profile = {
   firstName: 'Duncan',
   lastName: 'Marfo',
   initials: 'DM',
-  brand: 'DUNCAN OBENG MARFO',
   role: 'Software Developer & Freelance Developer',
   location: 'Ghana',
-  email: '',
-  linkedin: '',
-  github: '',
+  email: 'duncanmarfo5@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/duncan-obeng-marfo-72b901418/',
+  github: 'https://github.com/duncanmarfo5-max',
   available: true,
   heroImage: '/duncan-obeng-marfo.png',
   intro:
     'I build practical digital products, responsive websites and web applications that help people and businesses solve real problems.',
   about: [
-    'I am Duncan Obeng Marfo, a developer and Information Technology student at the University of Energy and Natural Resources (UENR) in Sunyani, Ghana. I enjoy turning ideas into useful digital experiences through software and web development.',
+    'A developer and Information Technology student at the University of Energy and Natural Resources (UENR) in Sunyani, Ghana. I enjoy turning ideas into useful digital experiences through software and web development.',
     'My work spans frontend interfaces, web applications, backend functionality and database-driven projects. I enjoy understanding a problem, planning a practical solution and bringing it to life through code.',
     'I have worked on projects including MoneyWise, an AI programming assistant, a student ID card service concept and a Python/Pygame basketball game. These projects reflect my interest in building technology that is useful, accessible and easy to work with.',
     'I am open to freelance opportunities, collaborations and opportunities to grow with a development team. I value clear communication, continuous learning, thoughtful problem-solving and delivering work that meets the actual needs of its users.'
@@ -37,7 +36,7 @@ export const profile = {
 };
 
 export const skills: { category: string; items: string[] }[] = [
-  { category: 'Languages & Web Foundations', items: ['Python', 'JavaScript', 'TypeScript', 'HTML', 'CSS'] },
+  { category: 'Languages & Web Foundations', items: ['Python', 'JavaScript', 'Java','TypeScript', 'HTML', 'CSS','C++'] },
   { category: 'Frontend Development', items: ['React', 'Responsive UI', 'Component-Based Development'] },
   { category: 'Backend & Data', items: ['APIs', 'MySQL', 'SQL', 'Database Design', 'Authentication'] },
   { category: 'Tools & Platforms', items: ['Git', 'GitHub', 'VS Code', 'Vercel'] },

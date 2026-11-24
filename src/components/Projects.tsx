@@ -1,15 +1,12 @@
 import { ExternalLink, FolderKanban, Github, Lock } from 'lucide-react';
 import { projects, type Project } from '@/config/site';
-import { useReveal } from '@/hooks/useReveal';
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const { ref, visible } = useReveal(0.1);
+function ProjectCard({ project }: { project: Project }) {
   const unclickable = project.liveUrl === '#' && project.repoUrl === '#';
 
   return (
     <article
-      ref={ref}
-      className={`reveal ${visible ? 'reveal-visible' : ''} reveal-delay-${Math.min(index + 1, 4)} group grid gap-8 border-t border-neutral-200 pt-10 lg:grid-cols-[1.2fr_1fr] lg:gap-14`}
+      className="group grid gap-8 border-t border-neutral-200 pt-10 lg:grid-cols-[1.2fr_1fr] lg:gap-14"
     >
       <a
         href={project.liveUrl !== '#' ? project.liveUrl : undefined}
@@ -107,19 +104,14 @@ export default function Projects() {
   return (
     <section id="projects" className="bg-neutral-50 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-ink-mute">
-          <FolderKanban className="h-3.5 w-3.5" />
-          Featured Projects
-        </p>
-        <h2 className="mt-4 max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl">
-          Selected work, built
-          <br />
-          to solve real problems.
+        <h2 className="flex items-center gap-3 font-display text-4xl font-bold uppercase leading-none tracking-tight text-ink sm:text-5xl lg:text-6xl">
+          <FolderKanban className="h-7 w-7 shrink-0 sm:h-9 sm:w-9" />
+          My Works
         </h2>
 
         <div className="mt-16 space-y-20 sm:space-y-28">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
+          {projects.map((project) => (
+            <ProjectCard key={project.name} project={project} />
           ))}
         </div>
       </div>
